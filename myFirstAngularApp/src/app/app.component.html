@@ -1,0 +1,40 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    Restful Tasks API
+  </h1>
+</div>
+
+<button (click) = "showData()">Get All Tasks</button>
+
+<ul *ngIf = "button">
+  <h2>All the tasks:</h2>
+  <li *ngFor = "let task of tasks">{{task.title}}<button (click) = "getData(task._id)">Show Detail</button><button (click) = "deleteData(task._id)">Delete</button><button (click) = "editData(task._id)">Edit</button></li>
+</ul>
+
+<ul *ngIf = "show" >
+  <h2>Details: </h2>
+  <div *ngFor = "let i of task">
+    <li>{{i.title}}</li>
+    <li>{{i.description}}</li>
+    <li>{{i.completed}}</li>
+    
+  </div>
+</ul>
+<h2>Add A New Task</h2>
+<form (submit)="addData()">
+  <p> {{ newTask | json }} </p>
+  Title: <input type="text" name="newTask.title" [(ngModel)]="newTask.title" />
+  Description: <input type="text" name="newTask.description" [(ngModel)]="newTask.description" />
+  <input type="submit" value="Create Task" />
+</form>
+
+<div *ngIf = "edit">
+  <h2>Edit this task</h2>
+    <form *ngFor = "let i of task" (submit)="update(i._id, myform)" #myform = "ngForm">
+        Title: <input type="text" [(ngModel)]="i.title" name="title" />
+        Description: <input type="text" [(ngModel)]="i.description" name="description" />
+        <input type="submit" value="Edit" />
+      </form>
+</div>
+
